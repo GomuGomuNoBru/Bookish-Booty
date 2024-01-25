@@ -1,0 +1,47 @@
+{# templates/default/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <h1>Bookish Booty</h1>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><a href="#">Search</a></li>
+                </ul>
+            </div>
+        </div>
+                <div class="content">
+                    <h2>Featured Books</h2>
+                    <div class="book-list">
+                        {% for book in books %}
+                            <div class="book">
+                                <h3>{{ book.title }}</h3>
+                                <p>{{ book.author }}</p>
+                                {# Add more book details here #}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+        <div class="footer">
+            <div class="contact">
+                <h3>Contact Us</h3>
+                <p>Email: info@bookishbooty.com</p>
+                <p>Phone: 123-456-7890</p>
+            </div>
+            <div class="links">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

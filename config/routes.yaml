@@ -3,3 +3,13 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# config/routes.yaml
+
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+book_item:
+    path: '/book/{id}'
+    controller: App\Controller\BookController::show
