@@ -13,3 +13,8 @@ index:
 book_item:
     path: '/book/{id}'
     controller: App\Controller\BookController::show
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+

@@ -2,6 +2,11 @@
 
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="header">
@@ -10,25 +15,61 @@
             </div>
             <div class="menu">
                 <ul>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="{{ path('login') }}">Login</a></li>
+                    <li><a href="{{ path('login') }}">Register</a></li>
+                    <li><a href="{{ path('login') }}">Search</a></li>
                 </ul>
             </div>
         </div>
-                <div class="content">
-                    <h2>Featured Books</h2>
-                    <div class="book-list">
-                        {% for book in books %}
-                            <div class="book">
+
+        <div class="content">
+            <h2>Book's News</h2>
+            <div class="book-list rotating-books">
+                {% for book in books %}
+                    <div class="book">
+                        <img src="{{ asset(book.image) }}" alt="{{ book.title }} cover">
+                        <div class="book-description">
+                            <h3>{{ book.title }}</h3>
+                            <p>{{ book.author }}</p>
+                            <p class="price">${{ book.price }}</p>
+                            <button class="buy-now-btn">Buy Now</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Section for 3 random recommended books -->
+            <h2>Recommended Books</h2>
+            <div class="book-list">
+                {% for book in books %}
+                    <div class="book">
+                        <img src="{{ asset(book.image) }}" alt="{{ book.title }} cover">
+                            <div class="book-description">
                                 <h3>{{ book.title }}</h3>
                                 <p>{{ book.author }}</p>
-                                {# Add more book details here #}
+                                <p class="price">${{ book.price }}</p>
+                                <button class="buy-now-btn">Buy Now</button>
                             </div>
-                        {% endfor %}
                     </div>
-                </div>
+                {% endfor %}
+            </div>
 
+            <!-- Section for 3 most popular books -->
+            <h2>Most Popular Books</h2>
+            <div class="book-list">
+                {% for book in books %}
+                    <div class="book">
+                        <img src="{{ asset(book.image) }}" alt="{{ book.title }} cover">
+                            <div class="book-description">
+                                <h3>{{ book.title }}</h3>
+                                <p>{{ book.author }}</p>
+                                <p class="price">${{ book.price }}</p>
+                                <button class="buy-now-btn">Buy Now</button>
+                            </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 
         <div class="footer">
             <div class="contact">
