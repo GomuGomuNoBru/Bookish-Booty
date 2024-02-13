@@ -1,5 +1,3 @@
-{# templates/default/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
@@ -23,7 +21,7 @@
         </div>
 
         <div class="content">
-            <h2>Book's News</h2>
+            <h2>News(for now only books)</h2>
             <div class="book-list rotating-books">
                 {% for book in books %}
                     <div class="book">
@@ -38,7 +36,6 @@
                 {% endfor %}
             </div>
 
-            <!-- Section for 3 random recommended books -->
             <h2>Recommended Books</h2>
             <div class="book-list">
                 {% for book in books %}
@@ -54,7 +51,6 @@
                 {% endfor %}
             </div>
 
-            <!-- Section for 3 most popular books -->
             <h2>Most Popular Books</h2>
             <div class="book-list">
                 {% for book in books %}

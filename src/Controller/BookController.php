@@ -12,7 +12,7 @@ class BookController extends AbstractController
      */
     public function show($id): Response
     {
-        // Fetch the book details from the database using the $id
+
 
         return $this->render('book/show.html.twig', [
             'book_id' => $id,
