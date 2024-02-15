@@ -14,13 +14,19 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $Price = null;
+    private ?int $price = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Description = null;
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $author = null;
 
     public function getId(): ?int
     {
@@ -29,37 +35,62 @@ class Book
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): static
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getPrice(): ?int
     {
-        return $this->Price;
+        return $this->price;
     }
 
-    public function setPrice(int $Price): static
+    public function setPrice(int $price): self
     {
-        $this->Price = $Price;
+        $this->price = $price;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): static
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
 }
+

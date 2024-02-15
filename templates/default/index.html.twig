@@ -3,34 +3,38 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css')}}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="header">
             <div class="logo">
-                <h1>Bookish Booty</h1>
+                <h1><a href="{{ path('home') }}">Bookish Booty</a></h1>
             </div>
             <div class="menu">
                 <ul>
                     <li><a href="{{ path('login') }}">Login</a></li>
                     <li><a href="{{ path('login') }}">Register</a></li>
                     <li><a href="{{ path('login') }}">Search</a></li>
+                    <li><a href="{{ path('shopping_cart') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </a></li> <!-- Add this line -->
                 </ul>
             </div>
+
         </div>
 
         <div class="content">
-            <h2>News(for now only books)</h2>
+            <h2>News (for now only books)</h2>
             <div class="book-list rotating-books">
                 {% for book in books %}
                     <div class="book">
-                        <img src="{{ asset(book.image) }}" alt="{{ book.title }} cover">
+                        <img src="{{ asset(book.image) }}" alt="{{ book.name }} cover">
                         <div class="book-description">
-                            <h3>{{ book.title }}</h3>
+                            <h3>{{ book.name }}</h3>
                             <p>{{ book.author }}</p>
                             <p class="price">${{ book.price }}</p>
-                            <button class="buy-now-btn">Buy Now</button>
+                            <button class="buy-now-btn" data-book-id="{{ book.id }}">Buy Now</button>
                         </div>
                     </div>
                 {% endfor %}
@@ -40,28 +44,29 @@
             <div class="book-list">
                 {% for book in books %}
                     <div class="book">
-                        <img src="{{ asset(book.image) }}" alt="{{ book.title }} cover">
-                            <div class="book-description">
-                                <h3>{{ book.title }}</h3>
-                                <p>{{ book.author }}</p>
-                                <p class="price">${{ book.price }}</p>
-                                <button class="buy-now-btn">Buy Now</button>
-                            </div>
+                        <img src="{{ asset(book.image) }}" alt="{{ book.name }} cover">
+                        <div class="book-description">
+                            <h3>{{ book.name }}</h3>
+                            <p>{{ book.author }}</p>
+                            <p class="price">${{ book.price }}</p>
+                            <button class="buy-now-btn" data-book-id="{{ book.id }}">Buy Now</button>
+                        </div>
                     </div>
                 {% endfor %}
+
             </div>
 
             <h2>Most Popular Books</h2>
             <div class="book-list">
                 {% for book in books %}
                     <div class="book">
-                        <img src="{{ asset(book.image) }}" alt="{{ book.title }} cover">
-                            <div class="book-description">
-                                <h3>{{ book.title }}</h3>
-                                <p>{{ book.author }}</p>
-                                <p class="price">${{ book.price }}</p>
-                                <button class="buy-now-btn">Buy Now</button>
-                            </div>
+                        <img src="{{ asset(book.image) }}" alt="{{ book.name }} cover">
+                        <div class="book-description">
+                            <h3>{{ book.name }}</h3>
+                            <p>{{ book.author }}</p>
+                            <p class="price">${{ book.price }}</p>
+                            <button class="buy-now-btn" data-book-id="{{ book.id }}">Buy Now</button>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -81,4 +86,42 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.buy-now-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const bookId = this.getAttribute('data-book-id');
+                addToCart(bookId);
+            });
+        });
+
+        function addToCart(bookId) {
+            fetch(`/add-to-cart/${bookId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ quantity: 1 })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to add book to cart');
+                    }
+                    return response.text().then(text => {
+                        try {
+                            return JSON.parse(text);
+                        } catch (error) {
+                            return text;
+                        }
+                    });
+                })
+                .then(data => {
+                    console.log(data); // Log the response from the server
+                    // Handle the response as needed
+                })
+                .catch(error => {
+                    console.error('Error adding book to cart:', error);
+                });
+        }
+    </script>
 {% endblock %}

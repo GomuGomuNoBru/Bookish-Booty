@@ -10,11 +10,26 @@ index:
     path: /
     controller: App\Controller\DefaultController::index
 
+home:
+    path: '/home'
+    controller: App\Controller\DefaultController::index
+
 book_item:
     path: '/book/{id}'
     controller: App\Controller\BookController::show
+
+book_delete:
+    path: '/delete-book/{id}'
+    controller: App\Controller\BookController::deleteBook
 
 login:
     path: /login
     controller: App\Controller\SecurityController::login
 
+shopping_cart:
+    path: /shopping_cart
+    controller: App\Controller\CartController::viewCart
+
+add_to_cart:
+    path: '/add-to-cart/{bookId}'
+    controller: App\Controller\CartController::addToCart
